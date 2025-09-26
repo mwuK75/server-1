@@ -20,14 +20,40 @@
     <p>
       <button @click="fetchData">データ取得</button>
     </p>
+    
+
+    <table v-if="data">
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>type</th>
+          <th>weight</th>
+          <th>ability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="p in data" :key="p.name">
+          <td>{{ p.name }}</td>
+          <td>{{ p.type }}</td>
+          <td>{{ p.weight }}</td>
+          <td>{{ p.ability }}</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
-  <script>
+
+    <script>
     function dataset() {
       return {
-        data: false,
+        data: [],
         async fetchData() {
+          const res = await fetch('data.json');
+          const json = await res.json();
+          this.data = json.list;
         }
       };
     }
-  </script>
+      
+    </script>
+
 </html>
